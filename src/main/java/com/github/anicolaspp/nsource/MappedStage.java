@@ -2,12 +2,12 @@ package com.github.anicolaspp.nsource;
 
 import java.util.function.Function;
 
-public class MappedStage<A, B> extends ComposableStage<B> {
+class MappedStage<A, B> extends ComposableStage<B> {
     
     private final ComposableStage<A> previousStage;
     private final Function<A, B> fn;
     
-    public MappedStage(ComposableStage<A> previousStage, Function<A, B> fn) {
+    MappedStage(ComposableStage<A> previousStage, Function<A, B> fn) {
         
         this.previousStage = previousStage;
         this.fn = fn;
