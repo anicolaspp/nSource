@@ -2,10 +2,12 @@ package com.github.anicolaspp.nsource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public abstract class ComposableStage<A> {
     
@@ -35,10 +37,14 @@ public abstract class ComposableStage<A> {
         return new TakeStage<>(this, n);
     }
     
+    public ComposableStage<A> takeWhile(Predicate<A> predicate) {
+        return new TakeWhileStage<>(this, predicate);
+    }
+    
     public RunnableStage<List<A>> toList() {
         return foldLeft(new ArrayList<>(), (a, l) -> {
             l.add(a);
-    
+            
             return l;
         });
     }
@@ -46,11 +52,11 @@ public abstract class ComposableStage<A> {
     public <B> RunnableStage<B> foldLeft(B zero, BiFunction<A, B, B> biFunction) {
         return () -> {
             var result = zero;
-    
+            
             while (moveNext()) {
                 result = biFunction.apply(getCurrent(), result);
             }
-    
+            
             return result;
         };
     }
@@ -62,6 +68,26 @@ public abstract class ComposableStage<A> {
             }
             
             return Done.getInstance();
+        };
+    }
+    
+    public RunnableStage<Optional<A>> first() {
+        return () -> {
+            if (moveNext()) {
+                return Optional.of(getCurrent());
+            } else {
+                return Optional.empty();
+            }
+        };
+    }
+    
+    public RunnableStage<A> firstOrDefault(Supplier<A> defaultValue) {
+        return () -> {
+            if (moveNext()) {
+                return getCurrent();
+            } else {
+                return defaultValue.get();
+            }
         };
     }
 }
