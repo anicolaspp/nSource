@@ -19,7 +19,7 @@ public abstract class ComposableStage<A> {
     
     protected A getCurrent() {
         if (!hasMoved) {
-            throw new InvalidOperationException("moveNext() should be call before calling getCurrent()");
+            throw new InvalidOperationException("moveNext() should be called before calling getCurrent()");
         }
         
         return current;
