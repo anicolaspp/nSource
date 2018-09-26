@@ -100,4 +100,21 @@ public class BasicStageTest {
         
         assert result.size() == 1;
     }
+    
+    @Test
+    public void testTake() {
+        val source = Arrays.asList(1, 2, 3, 4, 5);
+        
+        val result = nSource
+                .from(source)
+                .take(3)
+                .toList()
+                .run();
+        
+        assert result.size() == 3;
+        
+        assert result.get(0) == 1;
+        assert result.get(1) == 2;
+        assert result.get(2) == 3;
+    }
 }
