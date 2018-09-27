@@ -48,4 +48,43 @@ The main component of the **nSource** is `ComposableStage<>` and the followings 
 
 As we can appreciate, it shares a lot with `Java Streams` but it holds on laziness as much as it can. 
 
+**nSource** `ComposableStage<>` are meant to be used for chaining operations. However, once we get a `RunnableStage<>` we should not reuse the corresponding `ComposableStage<>`.  
+
+```java
+String name = ....
+
+RunnableStage<Integer> sum = nSource
+                              .from(getValues(...))
+                              .filter(v -> v.name.equals(name))
+                              .map(v -> v.getAge())
+                              .foldLeft(0, (a, b) -> a + b);
+
+assert sum.run() == sum.run()
+```
+
+In here, the computations happens only once (the first time we call `.run()` and the second time the value is reused internally. 
+
+On the other hand, the following might cause a source reuse, and that is not allowed. 
+
+```java
+ComposableStage<List<Integer>> stage = nSource
+                              .from(getValues(...))
+                              .filter(v -> v.name.equals(name))
+                              .map(v -> v.getAge());
+
+RunnableStage<Integer> sum = stage.foldLeft(0, (a, b) -> a + b);
+
+RunnableStage<Done> printThem = stage.forEach(System.out::println);
+```
+
+This is perfectly valid since nothing has been executed just yet, but then we should only be able to materialize exactly one of them (the first one to call `.run()`. 
+
+```java
+printThem.run();
+...
+int sumValue = sum.run(); // MaterializationException thrown here. 
+```
+
+The first one to be materialized wins.
+
 > This library is not intended to be used in production, but to present implementation details on lazy and smart design/implementation. 
