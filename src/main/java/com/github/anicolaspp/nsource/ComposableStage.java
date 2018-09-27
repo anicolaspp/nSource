@@ -17,12 +17,22 @@ public abstract class ComposableStage<A> {
     
     protected boolean hasMoved = false;
     
+    protected boolean isConsumed = false;
+    
     protected A getCurrent() {
         if (!hasMoved) {
             throw new InvalidOperationException("moveNext() should be called before calling getCurrent()");
         }
         
         return current;
+    }
+    
+    public boolean getIsConsumed() {
+        return isConsumed;
+    }
+    
+    void close() {
+        isConsumed = true;
     }
     
     public <B> ComposableStage<B> map(Function<A, B> fn) {
@@ -50,73 +60,33 @@ public abstract class ComposableStage<A> {
     }
     
     public <B> RunnableStage<B> foldLeft(B zero, BiFunction<A, B, B> biFunction) {
-        return () -> {
-            var result = zero;
-            
-            while (moveNext()) {
-                result = biFunction.apply(getCurrent(), result);
-            }
-            
-            return result;
-        };
+        throwExceptionIfConsumed();
+        
+        return new Fold<>(this, zero, biFunction);
     }
     
     public RunnableStage<Done> forEach(Consumer<A> consumer) {
-        return () -> {
-            while (moveNext()) {
-                consumer.accept(getCurrent());
-            }
-            
-            return Done.getInstance();
-        };
+        throwExceptionIfConsumed();
+    
+        return new ForEach<>(this, consumer);
     }
     
     public RunnableStage<Optional<A>> first() {
+        throwExceptionIfConsumed();
+    
         return new First<>(this);
     }
     
     public RunnableStage<A> firstOrDefault(Supplier<A> defaultValue) {
-        return () -> {
-            if (moveNext()) {
-                return getCurrent();
-            } else {
-                return defaultValue.get();
-            }
-        };
-    }
-}
-
-class First<A> implements RunnableStage<Optional<A>> {
+        throwExceptionIfConsumed();
     
-    private ComposableStage<A> stage;
-    
-    private Optional<A> value;
-    
-    private boolean hasValue = false;
-    
-    First(ComposableStage<A> stage) {
-        this.stage = stage;
+        return new FirstOrDefault<>(this, defaultValue);
     }
     
-    @Override
-    public Optional<A> run() {
-        if (hasValue) {
-            return value;
-        } else {
-            value = getReturnValue();
-            hasValue = true;
-    
-            return value;
-        }
-    }
-    
-    private Optional<A> getReturnValue() {
-        if (stage.moveNext()) {
-            return Optional.of(stage.getCurrent());
-        } else {
-            return Optional.empty();
+    private void throwExceptionIfConsumed() {
+        if (isConsumed) {
+            throw new RuntimeException("");
         }
     }
 }
-
 
