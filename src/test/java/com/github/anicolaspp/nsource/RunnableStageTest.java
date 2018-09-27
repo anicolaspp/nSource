@@ -94,4 +94,15 @@ public class RunnableStageTest {
                 .firstOrDefault(() -> 7)
                 .run() == 1;
     }
+    
+    @Test
+    public void testMutiRun() {
+        val source = Arrays.asList(1, 2, 3, 4, 5);
+    
+        val result = nSource
+                .from(source)
+                .first();
+        
+        assert result.run().get() == result.run().get();
+    }
 }

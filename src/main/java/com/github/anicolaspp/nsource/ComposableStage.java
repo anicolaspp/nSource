@@ -72,13 +72,7 @@ public abstract class ComposableStage<A> {
     }
     
     public RunnableStage<Optional<A>> first() {
-        return () -> {
-            if (moveNext()) {
-                return Optional.of(getCurrent());
-            } else {
-                return Optional.empty();
-            }
-        };
+        return new First<>(this);
     }
     
     public RunnableStage<A> firstOrDefault(Supplier<A> defaultValue) {
@@ -91,4 +85,38 @@ public abstract class ComposableStage<A> {
         };
     }
 }
+
+class First<A> implements RunnableStage<Optional<A>> {
+    
+    private ComposableStage<A> stage;
+    
+    private Optional<A> value;
+    
+    private boolean hasValue = false;
+    
+    First(ComposableStage<A> stage) {
+        this.stage = stage;
+    }
+    
+    @Override
+    public Optional<A> run() {
+        if (hasValue) {
+            return value;
+        } else {
+            value = getReturnValue();
+            hasValue = true;
+    
+            return value;
+        }
+    }
+    
+    private Optional<A> getReturnValue() {
+        if (stage.moveNext()) {
+            return Optional.of(stage.getCurrent());
+        } else {
+            return Optional.empty();
+        }
+    }
+}
+
 
