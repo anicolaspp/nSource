@@ -10,7 +10,7 @@
   <groupId>com.github.anicolaspp</groupId>
   <artifactId>nSource</artifactId>
   <packaging>jar</packaging>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
 
   <licenses>
     <license>
@@ -33,7 +33,7 @@
     <connection>scm:git:git@github.com:anicolaspp/nSource.git</connection>
     <developerConnection>scm:git:git@github.com:anicolaspp/nSource.git</developerConnection>
     <url>https://github.com/anicolaspp/nSource</url>
-    <tag>HEAD</tag>
+    <tag>nSource-1.1</tag>
   </scm>
 
   <distributionManagement>
@@ -64,7 +64,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <!--<version>3.5.1</version>-->
         <configuration>
-          <!--<source>1.8</source>-->
+          <source>1.8</source>
           <target>1.8</target>
           <compilerArgs>
             <arg>-parameters</arg>
