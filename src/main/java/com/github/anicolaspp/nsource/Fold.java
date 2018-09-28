@@ -24,7 +24,7 @@ class Fold<A, B> implements RunnableStage<B> {
         
         source.close();
     
-        var result = zero;
+        B result = zero;
     
         while (source.moveNext()) {
             result = biFunction.apply(source.getCurrent(), result);
