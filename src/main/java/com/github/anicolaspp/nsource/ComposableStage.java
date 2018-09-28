@@ -83,6 +83,14 @@ public abstract class ComposableStage<A> {
         return new FirstOrDefault<>(this, defaultValue);
     }
     
+    public RunnableStage<Boolean> anyMatch(Predicate<A> predicate) {
+        return () -> this.filter(predicate).first().run().isPresent();
+    }
+    
+    public RunnableStage<Boolean> allMatch(Predicate<A> predicate) {
+        return () -> this.foldLeft(true, (item, acc) -> acc && predicate.test(item)).run();
+    }
+    
     private void throwExceptionIfConsumed() {
         if (isConsumed) {
             throw new RuntimeException("");

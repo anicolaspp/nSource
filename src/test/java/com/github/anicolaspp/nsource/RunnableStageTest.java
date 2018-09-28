@@ -63,7 +63,7 @@ public class RunnableStageTest {
     @Test
     public void testForEachTwice() {
         val source = Arrays.asList(1, 2, 3, 4, 5);
-    
+        
         StringBuilder stringBuilder = new StringBuilder();
         
         val append = nSource.from(source).forEach(stringBuilder::append);
@@ -129,5 +129,45 @@ public class RunnableStageTest {
         assert !stage.first().run().isPresent();
         
         stage.first();
+    }
+    
+    @Test
+    public void testAnyMatchTrue() {
+        val source = Arrays.asList(1, 2, 3, -1, 5);
+        
+        assert nSource
+                .from(source)
+                .anyMatch(n -> n < 0)
+                .run();
+    }
+    
+    @Test
+    public void testAnyMatchFalse() {
+        val source = Arrays.asList(1, 2, 3, -1, 5);
+        
+        assert !nSource
+                .from(source)
+                .anyMatch(n -> n > 10)
+                .run();
+    }
+    
+    @Test
+    public void testAllMatchTrue() {
+        val source = Arrays.asList(1, 2, 3, 4, 5);
+        
+        assert nSource
+                .from(source)
+                .allMatch(n -> n > 0)
+                .run();
+    }
+    
+    @Test
+    public void testAllMatchFalse() {
+        val source = Arrays.asList(1, 2, 3, 4, 0);
+        
+        assert !nSource
+                .from(source)
+                .allMatch(n -> n > 0)
+                .run();
     }
 }
