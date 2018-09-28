@@ -56,7 +56,7 @@
 
   <ciManagement>
     <system>Travis</system>
-    <url>https://travis-ci.org/anicolaspp/HxFactory</url>
+    <url>https://travis-ci.org/anicolaspp/nSource</url>
   </ciManagement>
 
   <build>
