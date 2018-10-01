@@ -90,7 +90,7 @@ public class RunnableStageTest {
     @Test
     public void testFirtNone() {
         val result = nSource
-                .from(List.of())
+                .from(new ArrayList<>())
                 .first()
                 .run();
         
@@ -124,7 +124,7 @@ public class RunnableStageTest {
     @Test(expected = RuntimeException.class)
     public void testClose() {
         
-        val stage = nSource.from(List.<Integer>of());
+        ComposableStage<Integer> stage = nSource.from(new ArrayList<>());
         
         assert !stage.first().run().isPresent();
         

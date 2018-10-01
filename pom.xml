@@ -34,7 +34,7 @@
     <connection>scm:git:git@github.com:anicolaspp/nSource.git</connection>
     <developerConnection>scm:git:git@github.com:anicolaspp/nSource.git</developerConnection>
     <url>https://github.com/anicolaspp/nSource</url>
-    <tag>nSource-1.0</tag>
+    <tag>nSource-1.0.0</tag>
   </scm>
 
   <distributionManagement>
