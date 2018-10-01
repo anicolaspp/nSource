@@ -4,6 +4,14 @@
 
 **nSource** is a small, stream-like, fully featured and functional library to chain computation stages on top of regular Java Collections. This library is intended as a case of study for lazy design and to demonstrate how laziness is an important part when building performant software.
 
+```xml
+<dependency>
+  <groupId>com.github.anicolaspp</groupId>
+  <artifactId>nSource</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
 ## Features
 
 **nSource** has a few interesting characteristics.
