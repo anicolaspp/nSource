@@ -23,6 +23,7 @@ class Fold<A, B> implements RunnableStage<B> {
         }
         
         source.close();
+        hasValue = true;
     
         B result = zero;
     
@@ -30,6 +31,8 @@ class Fold<A, B> implements RunnableStage<B> {
             result = biFunction.apply(source.getCurrent(), result);
         }
     
+        value = result;
+        
         return result;
     }
 }

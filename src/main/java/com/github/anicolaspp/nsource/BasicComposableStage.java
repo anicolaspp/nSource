@@ -7,7 +7,6 @@ class BasicComposableStage<A> extends ComposableStage<A> {
     private Iterator<A> source;
     
     BasicComposableStage(Iterator<A> source) {
-        
         this.source = source;
     }
     

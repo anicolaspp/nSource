@@ -23,16 +23,18 @@ class FirstOrDefault<A> implements RunnableStage<A> {
             return value;
         } else {
             this.source.close();
-            
-            if (source.moveNext()) {
-                value = source.getCurrent();
-            } else {
-                value = defaultValue.get();
-            }
-            
             hasValue = true;
+            value = getResult(source, defaultValue);
             
             return value;
+        }
+    }
+    
+    private A getResult(ComposableStage<A> cs, Supplier<A> defaultValue) {
+        if (cs.moveNext()) {
+            return cs.getCurrent();
+        } else {
+            return defaultValue.get();
         }
     }
 }

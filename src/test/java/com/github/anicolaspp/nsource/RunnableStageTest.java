@@ -48,6 +48,21 @@ public class RunnableStageTest {
         assert result.equals("12345");
     }
     
+    @Test(expected = MaterializationException.class)
+    public void testFoldMaterialization() {
+        val source = Arrays.asList(1, 2, 3, 4, 5);
+        
+        val stage = nSource
+                .from(source);
+        
+        val fold = stage
+                .foldLeft("", (a, b) -> b + a);
+        
+        assert fold.run().equals(fold.run());
+        
+        stage.foldLeft("", (a, b) -> b + a).run();
+    }
+    
     @Test
     public void testForEach() {
         val source = Arrays.asList(1, 2, 3, 4, 5);

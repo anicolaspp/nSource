@@ -93,7 +93,7 @@ public abstract class ComposableStage<A> {
     
     private void throwExceptionIfConsumed() {
         if (isConsumed) {
-            throw new RuntimeException("");
+            throw new MaterializationException("Stages cannot be reuse at the Runnable layer");
         }
     }
 }
