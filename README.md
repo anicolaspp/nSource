@@ -1,5 +1,7 @@
 ![Logo](https://github.com/anicolaspp/nSource/blob/master/lazy%20nSource%20..png)
 
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.anicolaspp/nSource/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.anicolaspp/nSource)
 [![Build Status](https://travis-ci.org/anicolaspp/nSource.svg?branch=master)](https://travis-ci.org/anicolaspp/nSource)
 
 # nSource
@@ -40,7 +42,7 @@ Notice that nothing happens until we call `.run()` of the corresponding `Runnabl
 
 As we can see, this library can be seen in a similar way to what `Java Streams` offer and even though the intention is not to replace Streams, the library shows how the inception of lazy desing is a building blog when building smart components that need to present good performance. 
 
-## Java-like API
+## Stream-like API
 
 The main component of the **nSource** is `ComposableStage<>` and the followings are some of the present combinators. 
 
