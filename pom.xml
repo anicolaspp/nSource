@@ -11,7 +11,7 @@
   <groupId>com.github.anicolaspp</groupId>
   <artifactId>nSource</artifactId>
   <packaging>jar</packaging>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
 
   <licenses>
     <license>
@@ -34,7 +34,7 @@
     <connection>scm:git:git@github.com:anicolaspp/nSource.git</connection>
     <developerConnection>scm:git:git@github.com:anicolaspp/nSource.git</developerConnection>
     <url>https://github.com/anicolaspp/nSource</url>
-    <tag>nSource-1.0.1</tag>
+    <tag>nSource-1.0.0</tag>
   </scm>
 
   <distributionManagement>
