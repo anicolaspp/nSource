@@ -28,10 +28,10 @@
 **nSource** allows us to do the following. 
 
 ```java
-RunnableStage<Lis<String>> s = nsource
-                              .from(getNumberes())
+RunnableStage<List<String>> s = nsource
+                              .from(getNumbers())
                               .filter(x-> x % 2 == 0)
-                              .map(x-> x.toSting())
+                              .map(x-> x.toString())
                               .toList();
 List<String> f = s.run();
 ```
