@@ -1,5 +1,7 @@
 ![Logo](https://github.com/anicolaspp/nSource/blob/master/lazy%20nSource%20..png)
 
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.anicolaspp/nSource/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.anicolaspp/nSource)
 [![Build Status](https://travis-ci.org/anicolaspp/nSource.svg?branch=master)](https://travis-ci.org/anicolaspp/nSource)
 
 # nSource
