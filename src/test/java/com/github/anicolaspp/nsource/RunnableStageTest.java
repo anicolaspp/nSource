@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class RunnableStageTest {
     
@@ -100,7 +99,7 @@ public class RunnableStageTest {
     @Test
     public void testFirstOrDefault() {
         assert nSource
-                .from(List.<Integer>of())
+                .from(new ArrayList<Integer>())
                 .firstOrDefault(() -> 7)
                 .run() == 7;
         
