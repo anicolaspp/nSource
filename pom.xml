@@ -7,6 +7,7 @@
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
+  
   <groupId>com.github.anicolaspp</groupId>
   <artifactId>nSource</artifactId>
   <packaging>jar</packaging>
@@ -156,7 +157,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.2</version>
+      <version>1.16.18</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
